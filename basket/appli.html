@@ -1158,15 +1158,26 @@
             if (!consent) return toast('Merci d\'accepter les conditions d\'utilisation et la politique de confidentialité pour continuer.', 'error');
 
             try {
-                const cred = await auth.createUserWithEmailAndPassword(email, pass);
-                await col('users').doc(cred.user.uid).set({
-                    prenom, nom, email,
-                    status: 'pending',
-                    createdAt: new Date().toISOString(),
-                    rgpdConsent: true,
-                    rgpdConsentDate: new Date().toISOString()
-                });
-                toast('Compte créé ! En attente de validation.', 'success');
+                let cred;
+                try {
+                    cred = await auth.createUserWithEmailAndPassword(email, pass);
+                } catch (e1) {
+                    // Déjà un compte (inscrit dans une autre équipe) : on se connecte avec le même e-mail
+                    if (e1.code === 'auth/email-already-in-use') {
+                        cred = await auth.signInWithEmailAndPassword(email, pass);
+                    } else { throw e1; }
+                }
+                const dejaInscrit = await col('users').doc(cred.user.uid).get();
+                if (!dejaInscrit.exists) {
+                    await col('users').doc(cred.user.uid).set({
+                        prenom, nom, email,
+                        status: 'pending',
+                        createdAt: new Date().toISOString(),
+                        rgpdConsent: true,
+                        rgpdConsentDate: new Date().toISOString()
+                    });
+                }
+                toast('Inscription envoyée ! En attente de validation.', 'success');
             } catch (e) {
                 toast('Erreur : ' + e.message, 'error');
             }
