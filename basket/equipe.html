@@ -74,10 +74,8 @@ h1{font-family:var(--titre);font-size:clamp(2rem,5vw,3rem);font-weight:800;color
       zone.removeChild(infos);
       ajouter(zone, "p", "vide", "Les informations de cette équipe arrivent bientôt.");
     }
-    if (e.lien) {
-      var a = ajouter(zone, "a", "lien", e.lienTexte || "Voir le site de l'équipe");
-      a.href = e.lien;
-    }
+    var a = ajouter(zone, "a", "lien", e.lienTexte || "Ouvrir l'application de l'équipe");
+    a.href = e.lien || ("appli.html?equipe=" + encodeURIComponent(e.id));
   }
 </script>
 </body>
