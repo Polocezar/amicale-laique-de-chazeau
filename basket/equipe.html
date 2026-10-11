@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="logo-basket.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>Équipe - Basket - Amicale Laïque de Chazeau</title>
+<style>
+.wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.2rem 4rem}
+.retour{display:inline-block;margin-bottom:1.5rem;font-weight:600;color:var(--gris)}
+h1{font-family:var(--titre);font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--c);line-height:1.1}
+.cat{color:var(--gris);margin-top:.3rem}
+.infos{margin-top:1.8rem;display:grid;gap:.9rem}
+.info{background:#fff;border:1px solid var(--trait);border-left:6px solid var(--c);border-radius:6px;padding:.9rem 1.1rem}
+.info strong{display:block;font-family:var(--titre);margin-bottom:.2rem}
+.info ul{list-style:none}
+.vide{margin-top:1.8rem;color:var(--gris)}
+.lien{display:inline-block;margin-top:1.6rem;background:var(--c);color:#fff;text-decoration:none;font-weight:700;padding:.8rem 1.4rem;border-radius:999px}
+</style>
+</head>
+<body style="--c:#6A2C91">
+<div class="bande"></div>
+<header class="haut">
+  <div class="haut-in">
+    <a class="marque" href="index.html"><img src="logo.png" alt="Logo ALC"> Amicale Laïque de Chazeau</a>
+  </div>
+</header>
+<main class="wrap">
+  <a class="retour" href="basket.html">Retour aux équipes du Basket</a>
+  <div id="contenu"></div>
+</main>
+<script src="equipes.js"></script>
+<script>
+  var id = new URLSearchParams(location.search).get("id");
+  var e = EQUIPES.filter(function (x) { return x.id === id; })[0];
+  var zone = document.getElementById("contenu");
+
+  function ajouter(parent, balise, classe, texte) {
+    var el = document.createElement(balise);
+    if (classe) el.className = classe;
+    if (texte) el.textContent = texte;
+    parent.appendChild(el);
+    return el;
+  }
+
+  if (!e) {
+    ajouter(zone, "h1", "", "Équipe introuvable");
+    ajouter(zone, "p", "vide", "Retourne à la liste des équipes pour en choisir une.");
+  } else {
+    document.title = e.nom + " - Basket - Amicale Laïque de Chazeau";
+    ajouter(zone, "h1", "", e.nom);
+    ajouter(zone, "p", "cat", e.categorie);
+
+    var infos = ajouter(zone, "div", "infos", "");
+    var rempli = false;
+
+    if (e.entraineur) {
+      var b = ajouter(infos, "div", "info", ""); ajouter(b, "strong", "", "Entraîneur"); ajouter(b, "span", "", e.entraineur); rempli = true;
+    }
+    if (e.entrainements && e.entrainements.length) {
+      var c = ajouter(infos, "div", "info", ""); ajouter(c, "strong", "", "Entraînements");
+      var ul = ajouter(c, "ul", "", "");
+      e.entrainements.forEach(function (t) { ajouter(ul, "li", "", t); });
+      rempli = true;
+    }
+    if (e.salle) {
+      var d = ajouter(infos, "div", "info", ""); ajouter(d, "strong", "", "Salle"); ajouter(d, "span", "", e.salle); rempli = true;
+    }
+    if (!rempli) {
+      zone.removeChild(infos);
+      ajouter(zone, "p", "vide", "Les informations de cette équipe arrivent bientôt.");
+    }
+    if (e.lien) {
+      var a = ajouter(zone, "a", "lien", e.lienTexte || "Voir le site de l'équipe");
+      a.href = e.lien;
+    }
+  }
+</script>
+</body>
+</html>
