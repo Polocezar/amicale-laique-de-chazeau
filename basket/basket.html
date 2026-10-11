@@ -3,12 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Basket - Amicale Laïque de Chazeau</title>
 <link rel="icon" href="logo-basket.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<title>Basket - Amicale Laïque de Chazeau</title>
+<style>
+.wrap{max-width:1100px;margin:0 auto;padding:2.5rem 1.2rem 4rem}
+.retour{display:inline-block;margin-bottom:1.5rem;font-weight:600;color:var(--gris)}
+.tete{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap}
+.tete img{width:110px;height:110px;object-fit:cover;border-radius:18px}
+.tete h1{font-family:var(--titre);font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--c);line-height:1.1}
+.tete p{color:var(--gris);margin-top:.3rem}
+h2.cat{font-family:var(--titre);font-size:1.4rem;font-weight:700;margin:2.2rem 0 .8rem}
+.equipes{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.9rem}
+.eq{display:block;text-decoration:none;background:#fff;border:1px solid var(--trait);border-left:6px solid var(--c);border-radius:6px;padding:.9rem 1rem;font-weight:700}
+.eq small{display:block;color:var(--gris);font-weight:400}
+.eq:hover{background:#fbfcfb;border-color:var(--c)}
+</style>
 </head>
 <body style="--c:#6A2C91">
 <div class="bande"></div>
@@ -17,12 +30,39 @@
     <a class="marque" href="index.html"><img src="logo.png" alt="Logo ALC"> Amicale Laïque de Chazeau</a>
   </div>
 </header>
-<main class="section-page">
+<main class="wrap">
   <a class="retour" href="index.html#sections">Retour aux sections</a>
-  <img src="logo-basket.png" alt="Logo Basket-ball Amicale Laïque Chazeau Fayol" style="width:200px;max-width:60%;border-radius:24px;display:block;margin-bottom:1.2rem">
-  <h1>Basket</h1>
-  <p>La section compte 15 équipes. Les pages des équipes arrivent ici.</p>
-  <a class="lien" href="https://alcfbasket-pnm.fr">Voir l'équipe PNF</a>
+  <div class="tete">
+    <img src="logo-basket.png" alt="Logo Basket-ball Amicale Laïque Chazeau Fayol">
+    <div>
+      <h1>Basket</h1>
+      <p id="compte"></p>
+    </div>
+  </div>
+  <div id="liste"></div>
 </main>
+<script src="equipes.js"></script>
+<script>
+  document.getElementById("compte").textContent = EQUIPES.length + " équipes";
+  var liste = document.getElementById("liste");
+  ORDRE_CATEGORIES.forEach(function (cat) {
+    var groupe = EQUIPES.filter(function (e) { return e.categorie === cat; });
+    if (!groupe.length) return;
+    var h = document.createElement("h2");
+    h.className = "cat";
+    h.textContent = cat;
+    var grille = document.createElement("div");
+    grille.className = "equipes";
+    groupe.forEach(function (e) {
+      var a = document.createElement("a");
+      a.className = "eq";
+      a.href = "equipe.html?id=" + encodeURIComponent(e.id);
+      a.textContent = e.nom;
+      grille.appendChild(a);
+    });
+    liste.appendChild(h);
+    liste.appendChild(grille);
+  });
+</script>
 </body>
 </html>
