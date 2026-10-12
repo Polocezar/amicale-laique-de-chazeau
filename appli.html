@@ -97,6 +97,10 @@
         .sidebar-close-btn { display: none; }
 
         .main-area { flex: 1; min-width: 0; }
+
+        .amicale-bar { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding: 8px 20px; background: var(--violet-deep); font-size: 0.85rem; }
+        .amicale-bar a { color: var(--gold-bright); text-decoration: none; font-weight: 600; padding: 4px 0; }
+        .amicale-bar a:hover { text-decoration: underline; }
         .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 28px; background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 900; }
         .topbar-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
         .topbar-title { font-weight: 700; font-size: 0.9rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -621,15 +625,20 @@
                 <button class="nav-link" onclick="showPage('infos')" id="nav-infos"><span class="ic">📰</span> Infos</button>
                 <button class="nav-link" onclick="showPage('messagerie')" id="nav-messagerie"><span class="ic">💬</span> Messagerie</button>
                 <button class="nav-link admin-only" onclick="showPage('membres')" id="nav-membres"><span class="ic">⚙️</span> Membres</button>
-                <button class="nav-link" onclick="location.href='basket.html'" id="nav-equipes"><span class="ic">↩️</span> Toutes les équipes</button>
+                <button class="nav-link" onclick="location.href='basket.html'" id="nav-equipes"><span class="ic">↩️</span> Équipes du Basket</button>
+                <button class="nav-link" onclick="location.href='index.html'" id="nav-amicale"><span class="ic">🏠</span> Accueil de l'Amicale</button>
             </nav>
             <div class="sidebar-footer">
-                <div class="sidebar-season-box"><strong>Saison 2025/2026</strong><span class="eq-nom"></span></div>
+                <div class="sidebar-season-box"><strong>Saison 2026/2027</strong><span class="eq-nom"></span></div>
                 <div class="sidebar-tagline">Ensemble.<em>Plus forts.</em></div>
             </div>
         </aside>
 
         <div class="main-area">
+            <div class="amicale-bar">
+                <a href="index.html">🏠 Accueil de l'Amicale</a>
+                <a href="basket.html">🏀 Équipes du Basket</a>
+            </div>
             <div class="topbar">
                 <div class="topbar-left">
                     <button class="hamburger-btn" onclick="openSidebar()" aria-label="Menu">☰</button>
@@ -660,14 +669,14 @@
                         <img src="logo-basket.png" alt="Logo ALCF" style="width:120px; height:120px; object-fit:contain;" onerror="this.onerror=null; this.src='https://placehold.co/120x120/1c0f33/e8a13c?text=A';">
                         <h1 style="margin-bottom:0;">ALCF <span>Basket</span></h1>
                     </div>
-                    <div class="hero-subtitle"><span class="eq-nom"></span> - Saison 2025/2026</div>
+                    <div class="hero-subtitle"><span class="eq-nom"></span> - Saison 2026/2027</div>
                     <div class="hero-tagline">Travail · Engagement · Cohésion · Dépassement</div>
                     <div class="hero-btns">
                         <button onclick="showPage('calendrier')" class="btn btn-gold">📅 Voir le calendrier</button>
                         <button onclick="openModal('coordonnees')" class="btn btn-outline">📍 Coordonnées</button>
                     </div>
                 </div>
-                <img src="equipe-2025-2026.png" class="hero-photo" alt="Photo d'équipe ALCF" onerror="this.style.display='none';">
+                <img src="equipe-2026-2027.png" class="hero-photo" alt="Photo d'équipe ALCF" onerror="this.style.display='none';">
             </div>
         </section>
 
@@ -690,7 +699,7 @@
 
         <div class="dash-row-2">
             <div class="dash-card">
-                <div class="dash-card-head"><span class="ic">👥</span> Effectif 2025/2026</div>
+                <div class="dash-card-head"><span class="ic">👥</span> Effectif 2026/2027</div>
                 <div class="effectif-preview-strip" id="dashEffectifStrip"><p class="dash-empty">Chargement…</p></div>
                 <button class="dash-link" onclick="showPage('effectif')">Voir l'effectif complet →</button>
             </div>
@@ -778,7 +787,7 @@
             </div>
 
             <div class="champ-block" style="margin-bottom:32px;">
-                <h3>📅 Saison <span id="statsSaisonLabel">2025-2026</span> — Équipe</h3>
+                <h3>📅 Saison <span id="statsSaisonLabel">2026-2027</span> — Équipe</h3>
                 <div id="statsSaisonEquipe"><p class="empty-msg" style="padding:16px 0;">Chargement…</p></div>
             </div>
 
